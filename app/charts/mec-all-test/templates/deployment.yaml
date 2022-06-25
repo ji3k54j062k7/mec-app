@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mec-app-deployment
+  labels:
+    app: mec-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mec-app
+  template:
+    metadata:
+      labels:
+        app: mec-app
+    spec:
+      containers:
+      - name: mec-app
+        image: newnoobtank/mec-all-test
+        command: ["/bin/bash", "-c"]
+        args: [" sleep 30d"]

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mqtt-deployment
+  labels:
+    app: mqtt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mqtt
+  template:
+    metadata:
+      labels:
+        app: mqtt
+    spec:
+      containers:
+      - name: eclipse-mosquitto
+        image: eclipse-mosquitto:latest
+        volumeMounts:
+        - name: mosquitto
+          mountPath: "/mosquitto/config"
+        - name: mosquitto-data
+          mountPath: "/mosquitto/data"
+        - name: mosquitto-log
+          mountPath: "/mosquitto/log"
+      volumes:
+      - name: mosquitto
+        hostPath:
+          path: /mosquitto/config
+      - name: mosquitto-data
+        hostPath:
+          path: /mosquitto/data
+      - name: mosquitto-log
+        hostPath:
+          path: /mosquitto/log

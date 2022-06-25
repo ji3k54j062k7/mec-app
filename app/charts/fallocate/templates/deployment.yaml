@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fallocate-deployment
+  labels:
+    app: fallocate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fallocate
+  template:
+    metadata:
+      labels:
+        app: fallocate
+    spec:
+      containers:
+      - name: fallocate
+        image: newnoobtank/fallocate
+        command: ["/bin/bash", "-c"]
+        args: [" sleep 30d"]
